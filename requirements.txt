@@ -1,0 +1,2 @@
+Click>=7.0
+click-log>=0.2.1
