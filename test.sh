@@ -59,4 +59,3 @@ python3 -m pycodestyle --ignore=E501 --exclude .venv .
 
 einfo 'Test setup.py'
 python3 setup.py test
-rm -r *.egg-info
