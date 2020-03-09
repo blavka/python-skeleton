@@ -43,19 +43,22 @@ export PATH="$VENV_DIR/bin:$PATH"
 unset PYTHONHOME
 
 if [ -z "${TRAVIS_BUILD_DIR:-}" ]; then
-    BUILD_DIR="$(pwd)/build"
-    echo "$BUILD_DIR"
-    rm -rf "$BUILD_DIR"
-    mkdir -p "$BUILD_DIR"
-    rsync -av --delete --exclude .venv --exclude .git --exclude build . "$BUILD_DIR"
-    cd "$BUILD_DIR"
+	BUILD_DIR="$(pwd)/build"
+	echo "$BUILD_DIR"
+	rm -rf "$BUILD_DIR"
+	mkdir -p "$BUILD_DIR"
+	rsync -av --delete --exclude .venv --exclude .git --exclude build . "$BUILD_DIR"
+	cd "$BUILD_DIR"
 fi
 
 ls -lha
 
 einfo "Set version $PKG_VERSION"
 for d in */ ; do
-    set_version "$d/__init__.py"
+	if case $d in *.egg-info) ;; *) true;; esac; then
+    	continue
+	fi
+	set_version "$d/__init__.py"
 done
 
 einfo "Run sdist"
