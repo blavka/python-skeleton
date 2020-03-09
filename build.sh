@@ -55,10 +55,10 @@ ls -lha
 
 einfo "Set version $PKG_VERSION"
 for d in */ ; do
-	if case $d in *.egg-info) ;; *) true;; esac; then
-    	continue
-	fi
-	set_version "$d/__init__.py"
+	case $d in *.egg-info/)
+		continue
+	esac
+	set_version "${d}__init__.py"
 done
 
 einfo "Run sdist"
